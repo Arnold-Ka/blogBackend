@@ -1,8 +1,8 @@
 package com.hackers.blogbackend.mapper;
 
-
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import com.hackers.blogbackend.dto.ActivityLogDto;
 import com.hackers.blogbackend.dto.AiRecommendationDto;
@@ -29,7 +29,6 @@ import com.hackers.blogbackend.entity.Reaction;
 import com.hackers.blogbackend.entity.Tag;
 import com.hackers.blogbackend.entity.User;
 
-
 @Mapper(componentModel = "spring")
 public interface BlMapper {
 
@@ -39,7 +38,8 @@ public interface BlMapper {
      * @param user the User entity to map
      * @return the mapped UserDto
      */
-    UserDto maps(User user);
+    @Mapping(target = "roles", expression = "java(user.getRoles().stream().map(r -> r.getName()).collect(java.util.stream.Collectors.toSet()))")
+    UserDto toUserDto(User user);
 
     /**
      * Maps a UserDto to a User entity.
@@ -48,6 +48,14 @@ public interface BlMapper {
      * @return the mapped User entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "roles", ignore = true) 
+    @Mapping(target = "badges", ignore = true) 
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "password", ignore = true)
     User maps(UserDto userDto);
 
     /**
@@ -56,6 +64,9 @@ public interface BlMapper {
      * @param post the Post entity to map
      * @return the mapped PostDto
      */
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "categoryId", source = "category.id")
+    @Mapping(target = "tags", expression = "java(post.getTags().stream().map(t -> t.getName()).collect(java.util.stream.Collectors.toSet()))")
     PostDto maps(Post post);
 
     /**
@@ -65,6 +76,14 @@ public interface BlMapper {
      * @return the mapped PostDto
      */
     @InheritInverseConfiguration
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "category", ignore = true)
+    @Mapping(target = "tags", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
     Post maps(PostDto postDto);
 
     /**
@@ -74,6 +93,7 @@ public interface BlMapper {
      * @return the mapped CategoryDto
      */
     Category maps(Category category);
+
     /**
      * Maps a CategoryDto to a Category entity.
      *
@@ -81,6 +101,11 @@ public interface BlMapper {
      * @return the mapped Category entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
     Category maps(CategoryDto categoryDto);
 
     /**
@@ -89,6 +114,9 @@ public interface BlMapper {
      * @param comment the Comment entity to map
      * @return the mapped CommentDto
      */
+    @Mapping(target = "postId", source = "post.id")
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "parentId", source = "parentComment.id")
     CommentDto maps(Comment comment);
 
     /**
@@ -98,6 +126,14 @@ public interface BlMapper {
      * @return the mapped Comment entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "post", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "parentComment", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
     Comment maps(CommentDto commentDto);
 
     /**
@@ -106,7 +142,10 @@ public interface BlMapper {
      * @param inlineComment the InlineComment entity to map
      * @return the mapped InlineCommentDto
      */
+    @Mapping(target = "postId", source = "post.id")
+    @Mapping(target = "userId", source = "user.id")
     InlineCommentDto maps(InlineComment inlineComment);
+
     /**
      * Maps an InlineCommentDto to an InlineComment entity.
      *
@@ -114,14 +153,26 @@ public interface BlMapper {
      * @return the mapped InlineComment entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "post", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
     InlineComment maps(InlineCommentDto inlineCommentDto);
+
     /**
      * Maps a Reaction entity to a ReactionDto.
      *
      * @param reaction the Reaction entity to map
      * @return the mapped ReactionDto
      */
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "postId", source = "post.id")
+    @Mapping(target = "commentId", source = "comment.id")
     ReactionDto maps(Reaction reaction);
+
     /**
      * Maps a ReactionDto to a Reaction entity.
      *
@@ -129,13 +180,23 @@ public interface BlMapper {
      * @return the mapped Reaction entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "post", ignore = true)
+    @Mapping(target = "comment", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
     Reaction maps(ReactionDto reactionDto);
+
     /**
      * Maps a Notification entity to a NotificationDto.
      *
      * @param notification the Notification entity to map
      * @return the mapped NotificationDto
      */
+    
     NotificationDto maps(Notification notification);
 
     /**
@@ -145,6 +206,11 @@ public interface BlMapper {
      * @return the mapped Notification entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
     Notification maps(NotificationDto notificationDto);
 
     /**
@@ -154,6 +220,7 @@ public interface BlMapper {
      * @return the mapped BadgeDto
      */
     BadgeDto maps(Badge badge);
+
     /**
      * Maps a BadgeDto to a Badge entity.
      *
@@ -161,7 +228,13 @@ public interface BlMapper {
      * @return the mapped Badge entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
     Badge maps(BadgeDto badgeDto);
+
     /**
      * Maps a Tag entity to a TagDto.
      *
@@ -169,6 +242,7 @@ public interface BlMapper {
      * @return the mapped TagDto
      */
     TagDto maps(Tag tag);
+
     /**
      * Maps a TagDto to a Tag entity.
      *
@@ -176,6 +250,11 @@ public interface BlMapper {
      * @return the mapped Tag entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
     Tag maps(TagDto tagDto);
 
     /**
@@ -185,6 +264,7 @@ public interface BlMapper {
      * @return the mapped QuizBlockDto
      */
     QuizBlockDto maps(QuizBlock quizBlock);
+
     /**
      * Maps a QuizBlockDto to a QuizBlock entity.
      *
@@ -192,14 +272,23 @@ public interface BlMapper {
      * @return the mapped QuizBlock entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
     QuizBlock maps(QuizBlockDto quizBlockDto);
+
     /**
      * Maps an AiRecommendation entity to an AiRecommendationDto.
      *
      * @param aiRecommendation the AiRecommendation entity to map
      * @return the mapped AiRecommendationDto
      */
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "postId", source = "post.id")
     AiRecommendationDto maps(AiRecommendation aiRecommendation);
+
     /**
      * Maps an AiRecommendationDto to an AiRecommendation entity.
      *
@@ -207,6 +296,8 @@ public interface BlMapper {
      * @return the mapped AiRecommendation entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "post", ignore = true)
     AiRecommendation maps(AiRecommendationDto aiRecommendationDto);
 
     /**
@@ -215,7 +306,9 @@ public interface BlMapper {
      * @param activityLog the ActivityLog entity to map
      * @return the mapped ActivityLogDto
      */
+    @Mapping(target = "userId", source = "user.id")
     ActivityLogDto maps(ActivityLog activityLog);
+
     /**
      * Maps an ActivityLogDto to an ActivityLog entity.
      *
@@ -223,6 +316,12 @@ public interface BlMapper {
      * @return the mapped ActivityLog entity
      */
     @InheritInverseConfiguration
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
     ActivityLog maps(ActivityLogDto activityLogDto);
 
 }

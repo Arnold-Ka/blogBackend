@@ -1,16 +1,14 @@
 package com.hackers.blogbackend.entity;
 
+import com.hackers.blogbackend.utils.BaseEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,13 +17,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "activity_logs")
-public class ActivityLog {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ActivityLog extends BaseEntity {
 
 
     @Column(name = "action", nullable = false)
@@ -37,11 +31,6 @@ public class ActivityLog {
     @Column(name = "metadata", nullable = false)
     private String metadata;
 
-    @Column(name = "created_at", nullable = false)
-    private String createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private String updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

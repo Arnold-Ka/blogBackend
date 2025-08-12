@@ -19,8 +19,6 @@ public class BadgeDto {
     private String description;
     private String iconUrl;
     private String criteria;
-    private String awardedAt;
-    private String awardedBy;
 
     @Override
     public boolean equals(Object o) {

@@ -15,7 +15,7 @@ import lombok.Setter;
 @Builder
 public class InlineCommentDto {
     private Long id;
-    private String conttent;
+    private String content;
     private String target;
     private Long postId;
     private Long userId;

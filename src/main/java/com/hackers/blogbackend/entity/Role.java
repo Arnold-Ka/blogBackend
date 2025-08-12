@@ -1,35 +1,33 @@
 package com.hackers.blogbackend.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.hackers.blogbackend.utils.BaseEntity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import jakarta.persistence.JoinColumn;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "categories")
-public class Category extends BaseEntity {
-
-    @Column(name = "name", nullable = false)
+public class Role extends BaseEntity {
     private String name;
-    @Column(name = "slug", nullable = false, unique = true)
-    private String slug;
-    @Column(name = "description", nullable = false)
     private String description;
-    @Column(name = "icon", nullable = false)
-    private String icon;
+
+    @ManyToMany(mappedBy = "roles")
+    @JoinTable(name = "role_permissions",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    private Set<Permission> permissions = new HashSet<>();
 
     @Override
     public String toString() {
-        return "Category{" +
+        return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
@@ -40,12 +38,13 @@ public class Category extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return id != null && id.equals(category.id);
+        Role role = (Role) o;
+        return id != null && id.equals(role.id);
     }
 
     @Override
     public int hashCode() {
         return getClass().hashCode();
     }
+
 }

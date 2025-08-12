@@ -1,13 +1,11 @@
 package com.hackers.blogbackend.entity;
 
+import com.hackers.blogbackend.utils.BaseEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,13 +14,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "notifications")
-public class Notification {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Notification extends BaseEntity {
 
     @Column(name = "message", nullable = false)
     private String message;
@@ -31,11 +25,7 @@ public class Notification {
     private String link;
     @Column(name = "read", nullable = false)
     private boolean read;
-    @Column(name = "created_at", nullable = false)
-    private String createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private String updatedAt;
+    
 
     @Override
     public String toString() {

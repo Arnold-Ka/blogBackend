@@ -2,32 +2,25 @@ package com.hackers.blogbackend.entity;
 
 import com.hackers.blogbackend.utils.BaseEntity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "tags")
-public class Tag extends BaseEntity {
-    @Column(name = "name", nullable = false)
+@Table(name = "permissions")
+public class Permission extends BaseEntity {
     private String name;
-    @Column(name = "slug", nullable = false, unique = true)
-    private String slug;
+    private String description;
 
     @Override
     public String toString() {
-        return "Tag{" +
+        return "Permission{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", slug='" + slug + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 
@@ -35,12 +28,13 @@ public class Tag extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Tag tag = (Tag) o;
-        return id != null && id.equals(tag.id);
+        Permission permission = (Permission) o;
+        return id != null && id.equals(permission.id);
     }
 
     @Override
     public int hashCode() {
         return getClass().hashCode();
     }
+
 }

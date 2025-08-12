@@ -1,9 +1,9 @@
 package com.hackers.blogbackend.dto;
 
 import java.util.Objects;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class PostDto {
     private Long id;
     private String title;
@@ -25,7 +24,7 @@ public class PostDto {
     private String difficulty;
     private Long userId;
     private Long categoryId;
-    private Long tagId;
+    private Set<String> tags;
 
     @Override
     public boolean equals(Object o){

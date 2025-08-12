@@ -1,16 +1,18 @@
 package com.hackers.blogbackend.entity;
 
+import java.util.Set;
+
+import com.hackers.blogbackend.utils.BaseEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,70 +21,52 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "posts")
-public class Post {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "title", nullable = false)
+public class Post extends BaseEntity {
+    
+    @Column(nullable = false)
     private String title;
-    @Column(name = "slug", nullable = false, unique = true)
+    
+    @Column(nullable = false, unique = true)
     private String slug;
-    @Column(name = "content", nullable = false)
+    
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
-    @Column(name = "ai_summary", nullable = false)
+    
+    @Column(name = "ai_summary", nullable = false, columnDefinition = "TEXT")
     private String aiSummary;
-    @Column(name = "view", nullable = false)
-    @Builder.Default
-    private boolean view = false;
-    @Builder.Default
-    @Column(name = "published", nullable = false)
-    private boolean published = false;
+    
+    private boolean view;
+    private boolean published;
+    
     @Column(name = "estimate_time_to_read", nullable = false)
     private String estimateTimeToRead;
-    @Column(name = "difficulty", nullable = false)
+    
+    @Column(nullable = false)
     private String difficulty;
-    @Column(name = "created_at", nullable = false)
-    private String createdAt;
-    @Column(name = "updated_at", nullable = false)
-    private String updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id")
     private Category category;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tag_id", nullable = true)
-    private Tag tag;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "post_tags",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags;
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", slug='" + slug + '\'' +
-                ", content='" + content + '\'' +
-                ", aiSummary='" + aiSummary + '\'' +
-                ", view=" + view +
-                ", published=" + published +
-                ", estimateTimeToRead='" + estimateTimeToRead + '\'' +
-                ", difficulty='" + difficulty + '\'' +
-                ", createdAt='" + createdAt + '\'' +
-                ", updatedAt='" + updatedAt + '\'' +
-                '}';
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Post post = (Post) o;
+        if (!(o instanceof Post post)) return false;
         return id != null && id.equals(post.id);
-    
     }
+
     @Override
     public int hashCode() {
         return getClass().hashCode();

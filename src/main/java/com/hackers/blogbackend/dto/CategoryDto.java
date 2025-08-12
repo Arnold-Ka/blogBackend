@@ -3,7 +3,6 @@ package com.hackers.blogbackend.dto;
 import java.util.Objects;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class CategoryDto {
     private Long id;
     private String name;
@@ -20,6 +18,7 @@ public class CategoryDto {
     private String description;
     private String icon;
 
+    @SuppressWarnings("null")
     @Override
     public boolean equals(Object o){
         if(this == o){
