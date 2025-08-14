@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.QuizBlock;
 
-public interface QuizBlockRepository extends JpaRepository<QuizBlock, Long> {
+public interface QuizBlockRepository extends JpaRepository<QuizBlock, String> {
 
     /**
      * Finds a quiz block by its title.

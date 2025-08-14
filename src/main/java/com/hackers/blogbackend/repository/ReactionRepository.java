@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.Reaction;
 
-public interface ReactionRepository extends JpaRepository<Reaction, Long> {
+public interface ReactionRepository extends JpaRepository<Reaction, String> {
 
     /**
      * Finds a reaction by its type.

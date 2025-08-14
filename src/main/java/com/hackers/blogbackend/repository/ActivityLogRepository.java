@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.ActivityLog;
 
-public interface ActivityLogRepository extends JpaRepository<ActivityLog, Long> {
+public interface ActivityLogRepository extends JpaRepository<ActivityLog, String> {
 
     /**
      * Finds an activity log by its action.

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import com.hackers.blogbackend.entity.User;
 import com.hackers.blogbackend.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -22,6 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> 

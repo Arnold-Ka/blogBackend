@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.AiRecommendation;
 
-public interface AiRecommendationRepository extends JpaRepository<AiRecommendation, Long> {
+public interface AiRecommendationRepository extends JpaRepository<AiRecommendation, String> {
 
     /**
      * Finds an AI recommendation by its title.

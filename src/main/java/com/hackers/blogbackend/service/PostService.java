@@ -1,6 +1,7 @@
 package com.hackers.blogbackend.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.mapstruct.factory.Mappers;
@@ -24,13 +25,25 @@ public class PostService {
     }
 
     /**
-     * 
+     * Recuperation de touts les posts.
+     * @return la liste de tout les posts
      */
     @Transactional
     public List<PostDto> getPost(){
         return postRepository.findAll().stream()
                             .map(mapper::maps)
+                    
                             .collect(Collectors.toList());
     }
 
+    /**
+     * Recuperation d'un post.
+     * @id l'identifiant du post
+     * @return un Optional contenant le PostDto si trouvé, ou vide si non trouvé
+     */
+    @Transactional
+    public Optional<PostDto> getPostById(final String id){
+        return postRepository.findById(id)
+                             .map(mapper::maps);
+    }
 }

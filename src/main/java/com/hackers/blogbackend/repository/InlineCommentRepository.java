@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.InlineComment;
 
-public interface InlineCommentRepository extends JpaRepository<InlineComment, Long> {
+public interface InlineCommentRepository extends JpaRepository<InlineComment, String> {
 
     /**
      * Finds an inline comment by its content.

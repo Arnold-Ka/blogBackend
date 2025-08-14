@@ -1,7 +1,6 @@
 package com.hackers.blogbackend.security.model;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -9,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.hackers.blogbackend.entity.Role;
 import com.hackers.blogbackend.entity.User;
 import com.hackers.blogbackend.entity.enom.EStatut;
 
@@ -22,15 +20,11 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Role> roles = user.getRoles(); 
-        return roles.stream()
-                .flatMap(role -> {
-                    Stream<GrantedAuthority> roleAuth = Stream.of(
-                            new SimpleGrantedAuthority(role.getName()));
-                    Stream<GrantedAuthority> permAuth = role.getPermissions().stream()
-                            .map(perm -> new SimpleGrantedAuthority(perm.getName()));
-                    return Stream.concat(roleAuth, permAuth);
-                })
+        return user.getRoles().stream()
+                .flatMap(role -> Stream.concat(
+                        Stream.of(new SimpleGrantedAuthority("ROLE_" + role.getName())),
+                        role.getPermissions().stream()
+                                .map(perm -> new SimpleGrantedAuthority(perm.getName()))))
                 .collect(Collectors.toSet());
     }
 
@@ -46,17 +40,17 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return user.isAccountNonExpired();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return user.isAccountNonLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return user.isCredentialsNonExpired();
     }
 
     @Override
