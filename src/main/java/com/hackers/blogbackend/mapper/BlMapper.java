@@ -16,6 +16,7 @@ import com.hackers.blogbackend.dto.QuizBlockDto;
 import com.hackers.blogbackend.dto.ReactionDto;
 import com.hackers.blogbackend.dto.TagDto;
 import com.hackers.blogbackend.dto.UserDto;
+import com.hackers.blogbackend.dto.postdto.PostCreateDto;
 import com.hackers.blogbackend.entity.ActivityLog;
 import com.hackers.blogbackend.entity.AiRecommendation;
 import com.hackers.blogbackend.entity.Badge;
@@ -31,7 +32,7 @@ import com.hackers.blogbackend.entity.User;
 
 @Mapper(componentModel = "spring")
 public interface BlMapper {
-
+    
     /**
      * Maps a User entity to a UserDto.
      *
@@ -39,7 +40,7 @@ public interface BlMapper {
      * @return the mapped UserDto
      */
     @Mapping(target = "roles", expression = "java(user.getRoles().stream().map(r -> r.getName()).collect(java.util.stream.Collectors.toSet()))")
-    UserDto toUserDto(User user);
+    UserDto maps(User user);
 
     /**
      * Maps a UserDto to a User entity.
@@ -53,9 +54,9 @@ public interface BlMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
     @Mapping(target = "version", ignore = true)
-    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "statut", ignore = true)
     User maps(UserDto userDto);
 
     /**
@@ -66,25 +67,26 @@ public interface BlMapper {
      */
     @Mapping(target = "userId", source = "user.id")
     @Mapping(target = "categoryId", source = "category.id")
-    @Mapping(target = "tags", expression = "java(post.getTags().stream().map(t -> t.getName()).collect(java.util.stream.Collectors.toSet()))")
+    @Mapping(target = "tags", expression = "java(post.getTags().stream().map(tag -> tag.getName()).collect(java.util.stream.Collectors.toSet()))")
     PostDto maps(Post post);
 
-    /**
-     * Maps a Post entity to a PostDto.
-     *
-     * @param post the Post entity to map
-     * @return the mapped PostDto
-     */
+
+
     @InheritInverseConfiguration
-    @Mapping(target = "user", ignore = true)
-    @Mapping(target = "category", ignore = true)
     @Mapping(target = "tags", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
     @Mapping(target = "version", ignore = true)
-    Post maps(PostDto postDto);
+    @Mapping(target = "statut", ignore = true)
+    @Mapping(target = "aiSummary", ignore = true)
+    @Mapping(target = "estimateTimeToRead", ignore = true)
+    @Mapping(target = "comments", ignore = true)
+    @Mapping(target = "slug", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "category", ignore = true)
+    Post maps(PostCreateDto PostCreateDto);
 
     /**
      * Maps a Category entity to a CategoryDto.
@@ -103,9 +105,10 @@ public interface BlMapper {
     @InheritInverseConfiguration
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "statut", ignore = true)
     Category maps(CategoryDto categoryDto);
 
     /**
@@ -131,9 +134,10 @@ public interface BlMapper {
     @Mapping(target = "parentComment", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "statut", ignore = true)
     Comment maps(CommentDto commentDto);
 
     /**
@@ -157,9 +161,10 @@ public interface BlMapper {
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "statut", ignore = true)
     InlineComment maps(InlineCommentDto inlineCommentDto);
 
     /**
@@ -185,9 +190,10 @@ public interface BlMapper {
     @Mapping(target = "comment", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "statut", ignore = true)
     Reaction maps(ReactionDto reactionDto);
 
     /**
@@ -208,9 +214,10 @@ public interface BlMapper {
     @InheritInverseConfiguration
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "statut", ignore = true)
     Notification maps(NotificationDto notificationDto);
 
     /**
@@ -230,9 +237,10 @@ public interface BlMapper {
     @InheritInverseConfiguration
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "statut", ignore = true)
     Badge maps(BadgeDto badgeDto);
 
     /**
@@ -252,9 +260,10 @@ public interface BlMapper {
     @InheritInverseConfiguration
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "statut", ignore = true)
     Tag maps(TagDto tagDto);
 
     /**
@@ -274,9 +283,10 @@ public interface BlMapper {
     @InheritInverseConfiguration
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "statut", ignore = true)
     QuizBlock maps(QuizBlockDto quizBlockDto);
 
     /**
@@ -319,9 +329,10 @@ public interface BlMapper {
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "statut", ignore = true)
     ActivityLog maps(ActivityLogDto activityLogDto);
 
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryDto {
-    private Long id;
+    private String id;
     private String name;
     private String slug;
     private String description;

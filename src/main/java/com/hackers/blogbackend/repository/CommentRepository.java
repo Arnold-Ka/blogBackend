@@ -2,11 +2,11 @@ package com.hackers.blogbackend.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.Comment;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface CommentRepository extends JpaRepository<Comment, String> {
+public interface CommentRepository extends AbstractEntityInterface<Comment, String> {
 
     /**
      * Finds a comment by its content.

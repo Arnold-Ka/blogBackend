@@ -1,0 +1,20 @@
+spring:
+  application:
+    name : blogbackend
+  datasource:
+    url : jdbc:postgresql://localhost:5432/blog
+    username: blog_admin
+    password: bilyblog
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  servlet:
+    contextPath: /api
+
+

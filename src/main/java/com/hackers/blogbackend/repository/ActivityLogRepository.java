@@ -2,11 +2,11 @@ package com.hackers.blogbackend.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.ActivityLog;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface ActivityLogRepository extends JpaRepository<ActivityLog, String> {
+public interface ActivityLogRepository extends AbstractEntityInterface<ActivityLog, String> {
 
     /**
      * Finds an activity log by its action.

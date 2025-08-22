@@ -18,6 +18,8 @@ import lombok.Setter;
 @Table(name = "notifications")
 public class Notification extends BaseEntity {
 
+    @Column(name = "title")
+    private String title;
     @Column(name = "message", nullable = false)
     private String message;
 

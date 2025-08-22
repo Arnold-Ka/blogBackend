@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDto {
-    private Long id;
+    private String id;
     private String content;
     private Long postId;
     private Long userId;

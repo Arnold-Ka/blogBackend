@@ -14,7 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class QuizBlockDto {
-    private Long id;
+    private String id;
+    private String title;
     private String question;
     private String options;
     private String correctAnswer;

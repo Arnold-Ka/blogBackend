@@ -22,6 +22,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "ai_recommendations")
 public class AiRecommendation extends BaseEntity {
+    @Column(name = "titre")
+    private String title;
     @Column(name = "score", nullable = false)
     private String score;
     @Column(name = "recommendation", nullable = false)

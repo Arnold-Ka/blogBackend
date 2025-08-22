@@ -2,11 +2,11 @@ package com.hackers.blogbackend.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.Reaction;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface ReactionRepository extends JpaRepository<Reaction, String> {
+public interface ReactionRepository extends AbstractEntityInterface<Reaction, String> {
 
     /**
      * Finds a reaction by its type.

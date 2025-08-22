@@ -1,12 +1,13 @@
 package com.hackers.blogbackend.repository;
 
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.Post;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface PostRepository extends JpaRepository<Post, String> {
+public interface PostRepository extends AbstractEntityInterface<Post, String> {
 
     /**
      * Finds a post by its title.
@@ -23,5 +24,6 @@ public interface PostRepository extends JpaRepository<Post, String> {
      * @return true if a post with the given title exists, false otherwise
      */
     boolean existsByTitle(String title);
+    List <String> findSlugsLike(String baseSlug);
 
 }

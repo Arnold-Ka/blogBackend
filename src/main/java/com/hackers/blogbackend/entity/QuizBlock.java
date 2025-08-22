@@ -18,7 +18,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "quiz_blocks")
 public class QuizBlock extends BaseEntity {
-    
+
+    @Column(name = "titre")
+    private String title;
     @Column(name = "question", nullable = false)
     private String question;
     

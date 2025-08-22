@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class ActivityLogDto {
-    private Long id;
+    private String id;
     private String action;
     private String type;
     private String metadata;

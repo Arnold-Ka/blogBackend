@@ -2,11 +2,11 @@ package com.hackers.blogbackend.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.AiRecommendation;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface AiRecommendationRepository extends JpaRepository<AiRecommendation, String> {
+public interface AiRecommendationRepository extends AbstractEntityInterface<AiRecommendation, String> {
 
     /**
      * Finds an AI recommendation by its title.

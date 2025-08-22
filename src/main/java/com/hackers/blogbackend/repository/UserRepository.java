@@ -1,9 +1,9 @@
 package com.hackers.blogbackend.repository;
 import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.hackers.blogbackend.entity.User;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends AbstractEntityInterface<User, String> {
 
     /**
      * Finds a user by their email.

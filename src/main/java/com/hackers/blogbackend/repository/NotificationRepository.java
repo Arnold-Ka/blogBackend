@@ -2,11 +2,11 @@ package com.hackers.blogbackend.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.Notification;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface NotificationRepository extends JpaRepository<Notification, String> {
+public interface NotificationRepository extends AbstractEntityInterface<Notification, String> {
 
     /**
      * Finds a notification by its title.

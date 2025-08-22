@@ -14,7 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class AiRecommendationDto {
-    private Long id;
+    private String id;
+    private String title;
     private String score;
     private String recommendation;
     private Long userId;

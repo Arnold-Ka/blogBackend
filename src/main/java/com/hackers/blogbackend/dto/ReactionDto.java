@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class ReactionDto {
-    private Long id;
+    private String id;
     private String type;
     private String target;
     private Long userId;

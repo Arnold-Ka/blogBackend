@@ -2,11 +2,11 @@ package com.hackers.blogbackend.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.Tag;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface TagRepository extends JpaRepository<Tag, String> {
+public interface TagRepository extends AbstractEntityInterface<Tag, String> {
 
     /**
      * Finds a tag by its name.

@@ -14,7 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class NotificationDto {
-    private Long id;
+    private String id;
+    private String title;
     private String message;
     private String link;
     private boolean read;

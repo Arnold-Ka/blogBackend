@@ -2,11 +2,11 @@ package com.hackers.blogbackend.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.QuizBlock;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface QuizBlockRepository extends JpaRepository<QuizBlock, String> {
+public interface QuizBlockRepository extends AbstractEntityInterface<QuizBlock, String> {
 
     /**
      * Finds a quiz block by its title.

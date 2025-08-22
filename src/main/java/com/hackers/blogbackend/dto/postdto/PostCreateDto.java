@@ -1,6 +1,5 @@
-package com.hackers.blogbackend.dto;
+package com.hackers.blogbackend.dto.postdto;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,20 +12,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostDto {
+public class PostCreateDto {
     private String id;
     private String title;
-    private String slug;
     private String content;
-    private String aiSummary;
-    private boolean view;
     private boolean published;
-    private String estimateTimeToRead;
     private String difficulty;
     private String media;
-    private Set<CommentDto> comments = new HashSet<>();
-    private Long userId;
-    private Long categoryId;
+    private boolean view;
+    private String userId;
+    private String categoryId;
     private Set<String> tags;
 
 
@@ -38,7 +33,7 @@ public class PostDto {
         if(o == null || getClass() != o.getClass()){
             return false;
         }
-        PostDto post = (PostDto) o;
+        PostCreateDto post = (PostCreateDto) o;
         return id != null && id.equals(post.id);
     }
     @Override

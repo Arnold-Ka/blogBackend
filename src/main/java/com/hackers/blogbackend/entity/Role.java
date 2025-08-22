@@ -19,7 +19,7 @@ public class Role extends BaseEntity {
     private String name;
     private String description;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany
     @JoinTable(name = "role_permissions",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))

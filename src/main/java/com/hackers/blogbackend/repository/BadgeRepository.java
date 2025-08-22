@@ -2,11 +2,11 @@ package com.hackers.blogbackend.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.Badge;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface BadgeRepository extends JpaRepository<Badge, String> {
+public interface BadgeRepository extends AbstractEntityInterface<Badge, String> {
 
     /**
      * Finds a badge by its name.

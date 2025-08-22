@@ -2,11 +2,11 @@ package com.hackers.blogbackend.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hackers.blogbackend.entity.Category;
+import com.hackers.blogbackend.utils.AbstractEntityInterface;
 
-public interface CategoryRepository extends JpaRepository<Category, String> {
+public interface CategoryRepository extends AbstractEntityInterface<Category, String> {
 
     /**
      * Finds a category by its name.
