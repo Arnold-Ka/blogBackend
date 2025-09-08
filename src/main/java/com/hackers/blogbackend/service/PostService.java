@@ -65,7 +65,7 @@ public class PostService implements PostServiceInterface {
     public PostDto doPostPost(final PostCreateDto postCreateDto){
         Post post = mapper.maps(postCreateDto);
         String baseSlug = postCreateDto.getTitle();
-        List<String> slugs = postRepository.findSlugsLike(baseSlug);
+        List<String> slugs = postRepository.findBySlugLike(baseSlug);
         post.setSlug(Utils.generateUniqueSlug(postCreateDto.getTitle(), slugs));
         post.setTags(postCreateDto.getTags().stream()
                                             .map(name ->tagRepository

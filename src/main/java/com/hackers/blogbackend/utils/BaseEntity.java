@@ -13,12 +13,12 @@ import com.hackers.blogbackend.entity.enom.EStatut;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Version;
-
 
 
 @MappedSuperclass
@@ -62,12 +62,12 @@ public abstract class BaseEntity {
     @Column(
         name = "version"
     )
-    @Version
     protected Long version;
     
     @Column(
-        name = "satut"
+        name = "statut"
     )
+    @Enumerated(EnumType.STRING)
     protected EStatut statut;
 
     public BaseEntity(){

@@ -1,6 +1,5 @@
 package com.hackers.blogbackend.mapper;
 
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -29,8 +28,9 @@ import com.hackers.blogbackend.entity.QuizBlock;
 import com.hackers.blogbackend.entity.Reaction;
 import com.hackers.blogbackend.entity.Tag;
 import com.hackers.blogbackend.entity.User;
+import com.hackers.blogbackend.security.controller.RegisterDto;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring") 
 public interface BlMapper {
     
     /**
@@ -48,16 +48,32 @@ public interface BlMapper {
      * @param userDto the UserDto to map
      * @return the mapped User entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "roles", ignore = true) 
     @Mapping(target = "badges", ignore = true) 
     @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "createdBy", ignore = true)
+    //@Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "lastModifiedBy", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "statut", ignore = true)
     User maps(UserDto userDto);
+
+    @Mapping(target = "roles", ignore = true) 
+    @Mapping(target = "badges", ignore = true) 
+    @Mapping(target = "createdAt", ignore = true)
+    //@Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "statut", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "avatar", ignore = true)
+    @Mapping(target = "bio", ignore = true)
+    @Mapping(target = "lastActivity", ignore = true)
+    @Mapping(target = "lastLogin", ignore = true)
+    @Mapping(target = "preference", ignore = true)
+    @Mapping(target = "reputation", ignore = true)
+    User registerToUser(RegisterDto registerDto);
 
     /**
      * Maps a Post entity to a PostDto.
@@ -72,7 +88,6 @@ public interface BlMapper {
 
 
 
-    @InheritInverseConfiguration
     @Mapping(target = "tags", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
@@ -86,7 +101,7 @@ public interface BlMapper {
     @Mapping(target = "slug", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "category", ignore = true)
-    Post maps(PostCreateDto PostCreateDto);
+    Post maps(PostCreateDto postCreateDto);
 
     /**
      * Maps a Category entity to a CategoryDto.
@@ -94,7 +109,7 @@ public interface BlMapper {
      * @param category the Category entity to map
      * @return the mapped CategoryDto
      */
-    Category maps(Category category);
+    CategoryDto maps(Category category);
 
     /**
      * Maps a CategoryDto to a Category entity.
@@ -102,7 +117,6 @@ public interface BlMapper {
      * @param categoryDto the CategoryDto to map
      * @return the mapped Category entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
@@ -128,7 +142,6 @@ public interface BlMapper {
      * @param commentDto the CommentDto to map
      * @return the mapped Comment entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "post", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "parentComment", ignore = true)
@@ -156,7 +169,6 @@ public interface BlMapper {
      * @param inlineCommentDto the InlineCommentDto to map
      * @return the mapped InlineComment entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "post", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
@@ -184,7 +196,6 @@ public interface BlMapper {
      * @param reactionDto the ReactionDto to map
      * @return the mapped Reaction entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "post", ignore = true)
     @Mapping(target = "comment", ignore = true)
@@ -211,7 +222,6 @@ public interface BlMapper {
      * @param notificationDto the NotificationDto to map
      * @return the mapped Notification entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
@@ -234,7 +244,6 @@ public interface BlMapper {
      * @param badgeDto the BadgeDto to map
      * @return the mapped Badge entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
@@ -257,7 +266,6 @@ public interface BlMapper {
      * @param tagDto the TagDto to map
      * @return the mapped Tag entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
@@ -280,7 +288,6 @@ public interface BlMapper {
      * @param quizBlockDto the QuizBlockDto to map
      * @return the mapped QuizBlock entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "createdBy", ignore = true)
@@ -305,7 +312,6 @@ public interface BlMapper {
      * @param aiRecommendationDto the AiRecommendationDto to map
      * @return the mapped AiRecommendation entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "post", ignore = true)
     AiRecommendation maps(AiRecommendationDto aiRecommendationDto);
@@ -325,7 +331,6 @@ public interface BlMapper {
      * @param activityLogDto the ActivityLogDto to map
      * @return the mapped ActivityLog entity
      */
-    @InheritInverseConfiguration
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
@@ -336,3 +341,4 @@ public interface BlMapper {
     ActivityLog maps(ActivityLogDto activityLogDto);
 
 }
+

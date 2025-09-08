@@ -3,6 +3,9 @@ package com.hackers.blogbackend.controller;
 import com.hackers.blogbackend.dto.UserDto;
 import com.hackers.blogbackend.service.interfaces.UserServiceInterface;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +21,8 @@ public class UserController {
      * @return la liste des utilisateur
      */
     @GetMapping(value = "/users")
-    public List<UserDto> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(),HttpStatus.OK);
     }
 
     /**
@@ -48,18 +51,8 @@ public class UserController {
      * @return l'utilisateur sous format json
      */
     @GetMapping(value = "/users/um/{username}")
-    public Optional<UserDto> getUserByUsername(@PathVariable(name = "username") final String username) {
+    public UserDto getUserByUsername(@PathVariable(name = "username") final String username) {
         return userService.getUserbyUsername(username);
-    }
-
-    /**
-     * Ajout d'un nouveau utilisateur.
-     * @param userDto les informations de l'uilisateurs
-     * @return le nouveau utilisateur creer
-     */
-    @PostMapping(value = "/users")
-    public UserDto createUser(@RequestBody final UserDto userDto) {
-        return userService.addUser(userDto);
     }
 
     /**

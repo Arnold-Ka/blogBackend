@@ -2,11 +2,13 @@ package com.hackers.blogbackend.service;
 
 import com.hackers.blogbackend.dto.UserDto;
 import com.hackers.blogbackend.entity.User;
+import com.hackers.blogbackend.entity.enom.EStatut;
 import com.hackers.blogbackend.mapper.BlMapper;
 import com.hackers.blogbackend.repository.UserRepository;
 import com.hackers.blogbackend.service.interfaces.UserServiceInterface;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,8 +50,9 @@ public class UserService implements UserServiceInterface {
      * @return l'utilisateur
      */
     @Override
-    public Optional<UserDto> getUserbyUsername(String username) {
-        return userRepository.findByUsername(username).map(mapper::maps);
+    public UserDto getUserbyUsername(String username) {
+        return userRepository.findByUsername(username).map(mapper::maps).orElseThrow( () -> 
+            new UsernameNotFoundException("Utilisateur non trouvé"));
     }
 
     /**
@@ -62,16 +65,6 @@ public class UserService implements UserServiceInterface {
                 .collect(
                     Collectors.toList()
                 );
-    }
-
-    /**
-     * Ajout d'un nouveau utilisateur
-     * @param userDto les donnees de l'utilisateur
-     * @return l'utilisateur
-     */
-    @Override
-    public UserDto addUser(UserDto userDto) {
-        return mapper.maps(userRepository.save(mapper.maps(userDto)));
     }
 
     /**
@@ -95,6 +88,9 @@ public class UserService implements UserServiceInterface {
      */
     @Override
     public void deleteUser(String id) {
-        userRepository.deleteById(id);
+        User user = userRepository.findByIdAndStatut(id,EStatut.ACTIVE).orElseThrow(() -> 
+                    new UsernameNotFoundException("Utilisateur non trouvé : " + id)
+                );
+        user.setStatut(EStatut.SUPPRIMER);
     }
 }

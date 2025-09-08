@@ -30,10 +30,7 @@ public class UserDto {
     private String preference;
     private String lastLogin;
     private String lastActivity;
-    private boolean enabled;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
+    private String createdBy;
     private Set<BadgeDto> badges;
     private Set<String> roles; 
     @Override

@@ -24,6 +24,6 @@ public interface PostRepository extends AbstractEntityInterface<Post, String> {
      * @return true if a post with the given title exists, false otherwise
      */
     boolean existsByTitle(String title);
-    List <String> findSlugsLike(String baseSlug);
+    List <String> findBySlugLike(String baseSlug);
 
 }

@@ -2,7 +2,6 @@ package com.hackers.blogbackend.security.model;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,14 +18,16 @@ public class CustomUserDetails implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles().stream()
-                .flatMap(role -> Stream.concat(
-                        Stream.of(new SimpleGrantedAuthority("ROLE_" + role.getName())),
-                        role.getPermissions().stream()
-                                .map(perm -> new SimpleGrantedAuthority(perm.getName()))))
-                .collect(Collectors.toSet());
-    }
+public Collection<? extends GrantedAuthority> getAuthorities() {
+    // if (user.getRoles() == null || user.getRoles().isEmpty()) {
+    //     return Set.of(new SimpleGrantedAuthority("ROLE_USER"));
+    // }
+
+    return user.getRoles().stream()
+            .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
+            .collect(Collectors.toSet());
+}
+
 
     @Override
     public String getPassword() {
@@ -40,17 +41,26 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return user.isAccountNonExpired();
+        if (user.getStatut()==EStatut.SUSPENDED) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return user.isAccountNonLocked();
+        if (user.getStatut()==EStatut.INACTIVE) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return user.isCredentialsNonExpired();
+        if (user.getStatut()==EStatut.EXCREDENTIAL) {
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -1,12 +1,9 @@
 package com.hackers.blogbackend.entity;
 
-import com.hackers.blogbackend.entity.enom.EStatut;
 import com.hackers.blogbackend.utils.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Table;
 import jakarta.persistence.JoinColumn;
@@ -39,9 +36,6 @@ public class User extends BaseEntity {
     private String avatar;
     @Column(name = "bio", nullable = true)
     private String bio;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "statut", nullable = false)
-    private EStatut statut;
     @Column(name = "reputation", nullable = true)
     private String reputation;
     @Column(name = "preference", nullable = true)
@@ -53,10 +47,6 @@ public class User extends BaseEntity {
     private String lastLogin;
     @Column(name = "last_activity", nullable = true)
     private String lastActivity;
-    private boolean enabled;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_badges",

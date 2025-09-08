@@ -2,9 +2,9 @@ spring:
   application:
     name : blogbackend
   datasource:
-    url : {DB_URL}
-    username: {DB_USER}
-    password: {DB_PASS}
+    url : ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -16,5 +16,17 @@ spring:
 server:
   servlet:
     contextPath: /api
+jwt:
+  secret-key:
+    ${JWT_SECRET}
+  expiration-time:
+    ${JWT_EXPIRATION}
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          DEBUG
+
 
 

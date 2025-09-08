@@ -23,20 +23,13 @@ public interface UserServiceInterface {
      * @param username le pseudo de l'utilisateur
      * @return l'utilisateur
      */
-    public Optional<UserDto> getUserbyUsername(String username);
+    public UserDto getUserbyUsername(String username);
 
     /**
      * Recuperer la liste de tous les utiisateurs.
      * @return la liste des utilisateur
      */
     public List<UserDto> getAllUsers();
-
-    /**
-     * Ajoute un nouveau utilisateur.
-     * @param userDto les donnees de l'utilisateur
-     * @return l'utilisateur creer
-     */
-    public UserDto addUser(UserDto userDto);
 
     /**
      * Met a jour un utilisateur.
@@ -51,4 +44,5 @@ public interface UserServiceInterface {
      * @param id l'identifiant de l'utilisateur a supprimer
      */
     public void deleteUser(String id);
+
 }

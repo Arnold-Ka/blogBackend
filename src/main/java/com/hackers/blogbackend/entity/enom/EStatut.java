@@ -5,5 +5,6 @@ public enum EStatut {
     ACTIVE,
     INACTIVE,
     SUSPENDED,
-    SUPPRIMER
+    SUPPRIMER,
+    EXCREDENTIAL
 }
