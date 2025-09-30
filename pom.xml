@@ -58,19 +58,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- MapStruct -->
+        <!-- MapStruct API -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
-        </dependency>
-
-        <!-- MapStruct Processor -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- JWT -->
@@ -99,15 +91,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Dotenv -->
         <dependency>
             <groupId>me.paulschwarz</groupId>
             <artifactId>spring-dotenv</artifactId>
-             <version>3.0.0</version>
+            <version>3.0.0</version>
         </dependency>
-
     </dependencies>
-
-    
 
     <build>
         <plugins>
@@ -120,7 +110,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <annotationProcessorPaths>
-                        <!-- Lombok -->
+                        <!-- Lombok Processor -->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>

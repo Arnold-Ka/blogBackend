@@ -39,7 +39,7 @@ public interface BlMapper {
      * @param user the User entity to map
      * @return the mapped UserDto
      */
-    @Mapping(target = "roles", expression = "java(user.getRoles().stream().map(r -> r.getName()).collect(java.util.stream.Collectors.toSet()))")
+    @Mapping(target = "roles", ignore = true)
     UserDto maps(User user);
 
     /**

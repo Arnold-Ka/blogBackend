@@ -1,10 +1,13 @@
 package com.hackers.blogbackend.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
 import com.hackers.blogbackend.entity.Comment;
 import com.hackers.blogbackend.utils.AbstractEntityInterface;
+
+import org.springframework.lang.NonNull;
 
 public interface CommentRepository extends AbstractEntityInterface<Comment, String> {
 
@@ -23,5 +26,8 @@ public interface CommentRepository extends AbstractEntityInterface<Comment, Stri
      * @return true if a comment with the given content exists, false otherwise
      */
     boolean existsByContent(String content);
+
+    List<Comment> findByPostId(String postId);
+    boolean existsById(@NonNull String id);
 
 }
