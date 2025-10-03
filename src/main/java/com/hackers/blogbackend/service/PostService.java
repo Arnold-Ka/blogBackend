@@ -1,5 +1,6 @@
 package com.hackers.blogbackend.service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -52,9 +53,21 @@ public class PostService implements PostServiceInterface {
      * @return  le Post si trouvé, ou vide si non trouvé
      */
     @Transactional
-    public Optional<PostDto> getPostById(final String id){
+    public Optional<PostDto> getPostById(final String id) {
         return postRepository.findByIdAndStatut(id, EStatut.ACTIVE)
                              .map(mapper::maps);
+    }
+
+    /**
+     * 
+     * @param date
+     * @return
+     */
+    public List<PostDto> getPostByDate(Instant date) {
+        return postRepository.findByCreatedAt(date)
+                                                    .stream()
+                                                    .map(mapper::maps)
+                                                    .toList();
     }
     /**
      * Ajouter un nouveau Post.

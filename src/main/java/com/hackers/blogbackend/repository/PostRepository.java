@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import com.hackers.blogbackend.entity.Post;
 import com.hackers.blogbackend.utils.AbstractEntityInterface;
+import java.time.Instant;
+
 
 public interface PostRepository extends AbstractEntityInterface<Post, String> {
 
@@ -25,5 +27,12 @@ public interface PostRepository extends AbstractEntityInterface<Post, String> {
      */
     boolean existsByTitle(String title);
     List <String> findBySlugLike(String baseSlug);
+
+    /**
+     * Finds a post by date.
+     * @createdAt the date of the post
+     * @return the list of that post
+     */
+    List<Post> findByCreatedAt(Instant createdAt);
 
 }
