@@ -92,5 +92,6 @@ public class UserService implements UserServiceInterface {
                     new UsernameNotFoundException("Utilisateur non trouvé : " + id)
                 );
         user.setStatut(EStatut.SUPPRIMER);
+        userRepository.save(user);
     }
 }

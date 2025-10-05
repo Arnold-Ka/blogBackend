@@ -59,9 +59,9 @@ public class PostService implements PostServiceInterface {
     }
 
     /**
-     * 
-     * @param date
-     * @return
+     * Collect this post of one date.
+     * @param date the date
+     * @return the list of the post
      */
     public List<PostDto> getPostByDate(Instant date) {
         return postRepository.findByCreatedAt(date)
@@ -112,6 +112,8 @@ public class PostService implements PostServiceInterface {
      */
     @Transactional
     public void doDeletePost(final String id){
-        postRepository.deleteById(id);
+        Post post = postRepository.findByIdAndStatut(id,EStatut.ACTIVE).orElseThrow(() -> new IllegalArgumentException("Post non trouvé"));
+        post.setStatut(EStatut.SUPPRIMER);
+        postRepository.save(post);
     }
 }
