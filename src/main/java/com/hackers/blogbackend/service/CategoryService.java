@@ -1,5 +1,7 @@
 package com.hackers.blogbackend.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.hackers.blogbackend.dto.CategoryDto;
@@ -22,8 +24,38 @@ public class CategoryService {
         this.mapper = mapper;
     }
 
-    public CategoryDto getCategoryIdById(String id) {
+    /**
+     * Recuperation d'une categorie par son identifiant.
+     * @param id l'identifiant de la categorie
+     * @return la categorie si trouvée, sinon null
+     */
+    public CategoryDto getCategory(String id) {
+        if (!repository.existsById(id)) {
+            throw new IllegalArgumentException("Catégorie non trouvée");
+        }
         return repository.findById(id).map(mapper::maps).orElse(null);
+    }
+    /**
+     * Recuperation de toutes les categories.
+     * @return la liste des categories
+     */
+    public List<CategoryDto> getCategories(){
+        return repository.findAllActive()
+                        .stream()
+                        .map(mapper::maps)
+                        .toList();
+    }
+
+    /**
+     * Creation d'une categorie.
+     * @param categoryDto la categorie a creer
+     * @return la categorie creee
+     */
+    public CategoryDto postCategory(CategoryDto categoryDto) {
+        if (categoryDto == null || repository.existsByName(categoryDto.getName())) {
+            throw new IllegalArgumentException("Catégorie invalide");
+        }
+        return mapper.maps(repository.save(mapper.maps(categoryDto)));
     }
 
 

@@ -1,6 +1,5 @@
 package com.hackers.blogbackend.repository;
 
-import java.util.Optional;
 
 
 import com.hackers.blogbackend.entity.Category;
@@ -12,9 +11,18 @@ public interface CategoryRepository extends AbstractEntityInterface<Category, St
      * Finds a category by its name.
      *
      * @param name the name of the category
-     * @return an Optional containing the Category if found, or empty if not found
+     * @return a boolean indicating if the Category was found
      */
-    Optional<Category> findByName(String name);
+    boolean findByName(String name);
+
+    /**
+     * Finds a category by its slug.
+     *
+     * @param slug the slug of the category
+     * @return a boolean indicating if the Category was found
+     */
+    boolean findBySlug(String slug);
+
 
     /**
      * Checks if a category exists by its name.
