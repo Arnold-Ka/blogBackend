@@ -57,6 +57,25 @@ public class CategoryService {
         }
         return mapper.maps(repository.save(mapper.maps(categoryDto)));
     }
+    /**
+     * Mise a jour d'une categorie.
+     * @param id l'identifiant de la categorie a mettre a jour
+     * @param categoryDto la categorie mise a jour
+     * @return la categorie mise a jour
+     */
+
+    public CategoryDto putCategory(String id, CategoryDto categoryDto) {
+        if (categoryDto == null || !repository.existsById(id)) {
+            throw new IllegalArgumentException("Catégorie invalide");
+        }
+        return repository.findByIdAndActive(id, EStatut.ACTIVE)
+                         .map(existingCategory -> {
+                             existingCategory.setName(categoryDto.getName());
+                             existingCategory.setDescription(categoryDto.getDescription());
+                             return mapper.maps(repository.save(existingCategory));
+                         })
+                         .orElse(null);
+    }
 
 
 }
