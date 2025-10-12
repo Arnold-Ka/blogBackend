@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.hackers.blogbackend.dto.CategoryDto;
+import com.hackers.blogbackend.entity.enom.EStatut;
 import com.hackers.blogbackend.mapper.BlMapper;
 import com.hackers.blogbackend.repository.CategoryRepository;
 
@@ -68,7 +69,7 @@ public class CategoryService {
         if (categoryDto == null || !repository.existsById(id)) {
             throw new IllegalArgumentException("Catégorie invalide");
         }
-        return repository.findByIdAndActive(id, EStatut.ACTIVE)
+        return repository.findByIdAndStatut(id, EStatut.ACTIVE)
                          .map(existingCategory -> {
                              existingCategory.setName(categoryDto.getName());
                              existingCategory.setDescription(categoryDto.getDescription());
@@ -77,5 +78,18 @@ public class CategoryService {
                          .orElse(null);
     }
 
-
+    /**
+     * Suppression logique d'une categorie.
+     * @param id l'identifiant de la categorie a supprimer
+     */
+    public void deleteCategory(String id) {
+        if (!repository.existsById(id)) {
+            throw new IllegalArgumentException("Catégorie non trouvée");
+        }
+        repository.findByIdAndStatut(id, EStatut.ACTIVE)
+                  .ifPresent(category -> {
+                      category.setStatut(EStatut.SUPPRIMER);
+                      repository.save(category);
+                  });
+    }
 }
